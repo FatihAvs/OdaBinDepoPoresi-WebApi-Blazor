@@ -1,0 +1,39 @@
+﻿@inject IBuldingAppService buldingAppService
+@using BlazorApp.Services
+
+
+
+<h5>Bina Ekle</h5>
+<EditForm Model="bina" OnSubmit="HandleSubmit">
+    <div class="form-group">
+        <label>Bina Adı</label>
+        <InputText @bind-Value="bina.BinaAdi" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Adres</label>
+        <InputTextArea @bind-Value="bina.Adres" class="form-control"></InputTextArea>
+    </div>
+    <div class="form-group">
+        <label>Bina Katsayısı</label>
+        <InputNumber @bind-Value="bina.KatSayisi" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label>Bina Yaşı</label>
+        <InputNumber @bind-Value="bina.Yasi" class="form-control"></InputNumber>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    
+</EditForm>
+@code {
+
+     public Bina bina { get; set; } = new Bina();
+        
+     void HandleSubmit()
+    {
+        Console.WriteLine("Başarıyla Kaydedildi.");
+        buldingAppService.AddBina(bina);
+    }
+
+
+}

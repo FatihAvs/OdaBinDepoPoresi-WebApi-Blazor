@@ -1,0 +1,42 @@
+﻿@inject IBuldingAppService buldingAppService
+@using BlazorApp.Services
+
+
+<h3>Oda Ekle</h3>
+<EditForm Model="oda" OnSubmit="HandleSubmit">
+    <div class="form-group">
+        <label>Oda Açıklaması</label>
+        <InputText @bind-Value="oda.Acıklama" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Oda Fiyatı</label>
+        <InputNumber @bind-Value="oda.OdaFiyati" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label>Oda Yüzölçümü</label>
+        <InputNumber @bind-Value="oda.OdaM2" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label>Oda Katı</label>
+        <InputNumber @bind-Value="oda.OdaKati" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label>Bina Numarası</label>
+        <InputNumber @bind-Value="oda.BinaId" class="form-control"></InputNumber>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</EditForm>
+
+@code {
+
+    public Oda oda { get; set; } = new Oda();
+
+    void HandleSubmit()
+    {
+        Console.WriteLine("Başarıyla Kaydedildi.");
+        buldingAppService.AddOda(oda);
+    }
+
+}

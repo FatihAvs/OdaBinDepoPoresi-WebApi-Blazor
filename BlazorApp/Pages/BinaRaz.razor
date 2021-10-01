@@ -1,0 +1,62 @@
+﻿@page "/BinaRaz"
+@using BlazorApp.Services
+@inject NavigationManager navigationManager
+
+<h3>Binalar</h3>
+<EditBina></EditBina>
+@if (MyDataResult == null)
+{
+<div class="spinner-grow text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+}
+else
+{
+@foreach (var item in MyDataResult)
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Bina Id</th>
+                <th scope="col">Bina Adı</th>
+                <th scope="col">Adres</th>
+                <th scope="col">Kat Sayısı</th>
+                <th scope="col">Bina Yaşı</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">@item.BinaId</th>
+                <td>@item.BinaAdi</td>
+                <td>@item.Adres</td>
+                <td>@item.KatSayisi</td>
+                <td>@item.Yasi</td>
+                
+
+            </tr>
+            
+        </tbody>
+    </table>
+
+    }
+}
+
+@code {
+    [Inject]
+    public IBuldingAppService buldingAppService { get; set; }
+    public List<Bina> MyDataResult { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        MyDataResult = (await buldingAppService.BinalariGetir()).ToList();
+    }
+    void ShowDetail(int id)
+    {
+        navigationManager.NavigateTo($"binadetail/{id}");
+    }
+
+
+}
+

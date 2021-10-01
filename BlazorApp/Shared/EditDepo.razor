@@ -1,0 +1,40 @@
+﻿@inject IBuldingAppService buldingAppService
+@using BlazorApp.Services
+
+<h3>Depo Ekle</h3>
+<EditForm Model="depo" OnSubmit="HandleSubmit">
+    <div class="form-group">
+        <label>Depo Açıklaması</label>
+        <InputText @bind-Value="depo.Aciklama" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label>Depo Fiyatı</label>
+        <InputNumber @bind-Value="depo.DepoFiyatı" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label>Depo Yüzölçümü</label>
+        <InputNumber @bind-Value="depo.DepoM2" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label>Bina Numarası</label>
+        <InputNumber @bind-Value="depo.BinaId" class="form-control"></InputNumber>
+    </div>
+    
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</EditForm>
+
+
+
+@code {
+
+    public Depo depo { get; set; } = new Depo();
+
+    void HandleSubmit()
+    {
+        Console.WriteLine("Başarıyla Kaydedildi.");
+        buldingAppService.AddDepo(depo);
+    }
+
+}
