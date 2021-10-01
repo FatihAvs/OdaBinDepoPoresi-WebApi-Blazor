@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
             var result = _odaService.GetById(id);
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Data);
             }
             return BadRequest(result);
         }
