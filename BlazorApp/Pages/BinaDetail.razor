@@ -1,0 +1,25 @@
+﻿@page "/binadetail/{id:int}" 
+@using BlazorApp.Services 
+@inject IBuldingAppService buildingAppService
+
+<h3>Bina Detaylari</h3>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Bina Adı: @bina.BinaAdi</h5>
+        <hr />
+        <p class="card-text">Adres: @bina.Adres</p>
+        <p class="card-text">Kat Sayısı:@bina.KatSayisi </p>
+        <p class="card-text">Bina Yasi:@bina.Yasi </p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    Bina bina = new Bina();
+    protected override async Task OnInitializedAsync()
+    {
+        bina = await buildingAppService.BinayiGetir(id);
+    }
+
+}

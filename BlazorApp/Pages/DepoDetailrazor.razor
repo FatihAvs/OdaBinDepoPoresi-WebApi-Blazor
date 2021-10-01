@@ -1,0 +1,25 @@
+﻿@page "/depodetail/{id:int}"
+@using BlazorApp.Services
+@inject IBuldingAppService buildingAppService
+
+<h3>Bina Detaylari</h3>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Depo Adı: @depo.DepoId</h5>
+        <hr />
+        <p class="card-text">Açıklama: @depo.Aciklama</p>
+        <p class="card-text">Fiyat:@depo.DepoFiyatı </p>
+        <p class="card-text">Yüz Ölçümü:@depo.DepoM2 </p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    Depo depo = new Depo();
+    protected override async Task OnInitializedAsync()
+    {
+        depo = await buildingAppService.DepoyuGetir(id);
+    }
+
+}

@@ -18,6 +18,7 @@ namespace WebAPI.Controllers
         {
             _depoService = depoService;
         }
+        Depo depo { get; set; }
         [HttpGet("getall")]
         public IActionResult GetAll()
 
@@ -31,7 +32,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Data);
         }
-        [HttpGet("id")]
+        [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
             var result = _depoService.GetById(id);
@@ -53,8 +54,9 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Depo depo)
+        public IActionResult Delete(int id)
         {
+            depo = _depoService.GetById(id).Data;
             var result = _depoService.Delete(depo);
             if (result.Success)
             {

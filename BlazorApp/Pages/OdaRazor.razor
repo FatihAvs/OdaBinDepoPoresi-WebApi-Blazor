@@ -1,13 +1,14 @@
 ﻿@page "/OdaRazor"
 @using BlazorApp.Services
+@inject NavigationManager navigationManager
 
 <h3>Odalar</h3>
 <EditOda></EditOda>
 @if (MyDataResult == null)
 {
-<div class="spinner-grow text-primary" role="status">
-    <span class="sr-only">Loading...</span>
-</div>
+    <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 }
 else
 {
@@ -32,7 +33,13 @@ else
                     <td>@item.OdaKati</td>
                     <td>@item.OdaM2</td>
                     <td>@item.Acıklama</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(()=>ShowDetail(item.OdaId))">Detay Görüntüle</button>
+                    </td>
 
+                    <td>
+                        <button class="btn btn-primary" @onclick="(()=>DeleteOda(item.OdaId))">Binayı Sil</button>
+                    </td>
                 </tr>
 
             </tbody>
@@ -51,6 +58,14 @@ else
     protected override async Task OnInitializedAsync()
     {
         MyDataResult = (await buildingAppService.OdalariGetir()).ToList();
+    }
+    void DeleteOda(int id)
+    {
+        buildingAppService.DeleteOda(id);
+    }
+    void ShowDetail(int id)
+    {
+        navigationManager.NavigateTo($"odadetail/{id}");
     }
 
 }

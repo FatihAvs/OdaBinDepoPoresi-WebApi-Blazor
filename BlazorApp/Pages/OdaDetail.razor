@@ -1,0 +1,27 @@
+﻿@page "/odadetail/{id:int}"
+@using BlazorApp.Services
+@inject IBuldingAppService buildingAppService
+
+<h3>Bina Detaylari</h3>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">@oda.OdaId</h5>
+        <hr />
+        <p class="card-text">Açıklama: @oda.Acıklama</p>
+        <p class="card-text">Fiyat:@oda.OdaFiyati </p>
+        <p class="card-text">Oda Katı:@oda.OdaKati </p>
+        <p class="card-text">Yüz Ölçümü:@oda.OdaM2 </p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    Oda oda = new Oda();
+    protected override async Task OnInitializedAsync()
+    {
+        oda = await buildingAppService.OdayiGetir(id);
+    }
+   
+
+}

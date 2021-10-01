@@ -33,7 +33,12 @@ else
                 <td>@item.Adres</td>
                 <td>@item.KatSayisi</td>
                 <td>@item.Yasi</td>
-                
+                <td>
+                    <button class="btn btn-primary" @onclick="(()=>ShowDetail(item.BinaId))">Detay Görüntüle</button>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @onclick="(()=>DeleteBina(item.BinaId))">Binayı Sil</button>
+                </td>
 
             </tr>
             
@@ -45,16 +50,20 @@ else
 
 @code {
     [Inject]
-    public IBuldingAppService buldingAppService { get; set; }
+    public IBuldingAppService buildingAppService { get; set; }
     public List<Bina> MyDataResult { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        MyDataResult = (await buldingAppService.BinalariGetir()).ToList();
+        MyDataResult = (await buildingAppService.BinalariGetir()).ToList();
     }
     void ShowDetail(int id)
     {
         navigationManager.NavigateTo($"binadetail/{id}");
+    }
+    void DeleteBina(int id)
+    {
+        buildingAppService.DeleteBina(id);
     }
 
 

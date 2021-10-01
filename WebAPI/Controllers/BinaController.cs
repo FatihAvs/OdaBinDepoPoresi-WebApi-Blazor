@@ -18,6 +18,7 @@ namespace WebAPI.Controllers
         {
             _binaService = binaService;
         }
+        Bina bina { get; set; }
         
         [HttpGet("getall")]
         public IActionResult GetAll()
@@ -34,7 +35,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("id")]
+        [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
             var result = _binaService.GetById(id);
@@ -56,8 +57,9 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Bina bina)
+        public IActionResult Delete(int id)  
         {
+            bina = _binaService.GetById(id).Data;
             var result = _binaService.Delete(bina);
             if (result.Success)
             {

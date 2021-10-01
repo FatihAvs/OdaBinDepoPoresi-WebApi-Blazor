@@ -14,7 +14,13 @@ namespace BlazorApp.Services
         Task<string> AddBina(Bina bina);
         Task<string> AddDepo(Depo depo);
         Task<string> AddOda(Oda oda);
-       
+        Task<string> DeleteBina(int id);
+        Task<string> DeleteOda(int id);
+        Task<string> DeleteDepo(int id);
+        Task<Bina> BinayiGetir(int id);
+        Task<Oda> OdayiGetir(int id);
+        Task<Depo> DepoyuGetir(int id);
+
 
 
     }

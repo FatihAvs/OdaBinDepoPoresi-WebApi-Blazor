@@ -18,6 +18,7 @@ namespace WebAPI.Controllers
         {
             _odaService = odaService;
         }
+        Oda oda { get; set; }
         [HttpGet("getall")]
         public IActionResult GetAll()
 
@@ -45,7 +46,7 @@ namespace WebAPI.Controllers
 
         [HttpPost("add")]
         public IActionResult Post(Oda oda)
-        {
+        {  
             var result = _odaService.Add(oda);
             if (result.Success)
             {
@@ -54,8 +55,9 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Oda oda)
+        public IActionResult Delete(int id)
         {
+            oda = _odaService.GetById(id).Data;
             var result = _odaService.Delete(oda);
             if (result.Success)
             {
